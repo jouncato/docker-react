@@ -1,6 +1,32 @@
 sudo : required
+language: generic
 services:
+    stdin_open: true
     - docker
 
 before_install:
     - docker build -t jouncato/docker-react -f Dockerfile.dev . 
+
+script:
+    - docker run jouncato/docker-react npm run test -- --coverage
+
+# Para GCP
+#deploy:
+#    provider: gae
+#    keyfile: "YOUR SERVICE ACCOUNT JSON FILE"
+#   project: "YOUR PROJECT ID"
+
+# Para AWS
+deploy:
+    provider: elasticbeanstalk
+    region: "sa-east-1"
+    app: "docker-react"
+    env: "DockerReact-env"
+    bucket_name: "elasticbeanstalk-sa-east-1-109771796549"
+    bucket_path: "docker-react"
+    on:
+        branch: master  
+        access_key_id:
+            secure: $AWS_ACCESS_KEY
+          secret_access_key:
+            secure: $AWS_SECRET_KEY
