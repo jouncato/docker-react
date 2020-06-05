@@ -9,6 +9,7 @@ before_install:
 
 script:
     - docker run jouncato/docker-react npm run test -- --coverage
+<<<<<<< HEAD
 
 # Para GCP
 #deploy:
@@ -30,3 +31,5 @@ deploy:
             secure: $AWS_ACCESS_KEY
           secret_access_key:
             secure: $AWS_SECRET_KEY
+=======
+>>>>>>> 68fa9783a6d6b74f15134c814acc46db41c8286f
